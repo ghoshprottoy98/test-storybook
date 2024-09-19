@@ -99,8 +99,6 @@ export const Action: Story = {
   },
 };
 
-
-
 export const Pagination: Story = {
   args: {
     columnDefs: [
@@ -131,8 +129,18 @@ export const Pagination: Story = {
       { assessmentName: 'Astronomy Project', assessmentType: 'Project', isActive: false },
       { assessmentName: 'Environmental Science Test', assessmentType: 'Test', isActive: true },
     ],
-    pagination: true,
   },
+  render: (args) => ({
+    props: args,
+    template: `
+    <app-easy-grid
+      [columnDefs]="columnDefs"
+      [rowData]="dataSource"
+      [pagination]="true" 
+      autoSizeColumnsToFit="size">
+    </app-easy-grid>
+`,
+  }),
   parameters: {
     docs: {
       description: {
