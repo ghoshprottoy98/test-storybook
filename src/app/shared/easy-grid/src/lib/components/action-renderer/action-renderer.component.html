@@ -1,0 +1,58 @@
+<div *ngIf="menu; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+  <button *ngIf="activeCount" mat-icon-button class="action-button" [matMenuTriggerFor]="menu" aria-label="Action menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <ng-template ngFor let-action [ngForOf]="actions" let-index="index">
+      <ng-template [ngIf]="!shouldHide(node.data, index, action)">
+        <button *ngIf="action.routerPath; else elseMenu" [attr.data-id]="action.id"
+                [routerLink]="[action.routerPath | resolveUrl: node.data: action.routerParams]"
+                (click)="onClicked(action)" mat-menu-item>
+          <mat-icon [color]="action.class" *ngIf="action.icon">{{action?.icon}}</mat-icon>
+          <span>{{action?.title}}</span>
+        </button>
+        <ng-template #elseMenu>
+          <button [attr.data-id]="action.id"
+                  (click)="onClicked(action)" mat-menu-item>
+            <mat-icon [color]="action.class" *ngIf="action.icon">{{action?.icon}}</mat-icon>
+            <span>{{action?.title}}</span>
+          </button>
+        </ng-template>
+      </ng-template>
+    </ng-template>
+  </mat-menu>
+</ng-template>
+<ng-template #elseBlock>
+
+  <ng-template ngFor let-action [ngForOf]="actions" let-index="index">
+    <ng-template [ngIf]="node.data && !shouldHide(node.data, index, action)">
+      <ng-template [ngIf]="action.routerPath">
+        <button [matTooltip]="action.title" *ngIf="action.icon" mat-icon-button [color]="action.class || 'primary'"
+                 (click)="onClicked(action)"
+                 [attr.aria-label]="action.title"
+                 [routerLink]="[action.routerPath | resolveUrl: node.data: action.routerParams]"
+        >
+          <mat-icon [color]="action.class">{{action?.icon}}</mat-icon>
+        </button>
+        <button *ngIf="!action.icon"
+                (click)="onClicked(action)"
+                [routerLink]="[action.routerPath | resolveUrl: node.data: action.routerParams]"
+                class="btn"
+                [class]="action?.class">
+          {{action.title}}
+        </button>
+      </ng-template>
+      <ng-template [ngIf]="!action.routerPath">
+        <button *ngIf="action.icon" [matTooltip]="action.title"  mat-icon-button color="primary" (click)="onClicked(action)"
+                [attr.aria-label]="action.title">
+          <mat-icon [color]="action.class">{{action?.icon}}</mat-icon>
+        </button>
+        <button *ngIf="!action.icon" (click)="onClicked(action)" class="btn" [class]="action?.class">
+          {{action.title}}
+        </button>
+      </ng-template>
+    </ng-template>
+  </ng-template>
+</ng-template>
+

@@ -1,0 +1,6 @@
+<a [routerLink]="[link]">
+    <img *ngIf="iconType==='svg' && icon" [src]="icon" alt=""/>
+    <i *ngIf="iconType==='fa' && icon" [class]="icon"></i>
+    <mat-icon *ngIf="iconType==='mat' && icon" aria-hidden="false">{{icon}}</mat-icon>
+    {{label}}
+</a>

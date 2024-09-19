@@ -1,0 +1,22 @@
+.full-width-form {
+  width: 100%;
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+fieldset.chips-container {
+  border: 1px solid #9e9e9e;
+  padding: 12px;
+
+  legend {
+    float: none;
+    width: auto;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0 8px;
+    margin-bottom: -3px;
+  }
+}
+

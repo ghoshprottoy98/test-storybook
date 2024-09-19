@@ -1,0 +1,151 @@
+/*!
+ * This file is part of the Easy Grid Angular
+ *
+ * Copyright (c) 2019-2023, BRAC IT SERVICES LIMITED <http://www.bracits.com>
+ *
+ */
+
+@import 'ag-grid-community/styles/ag-grid.css';
+// Core grid CSS, always needed
+@import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
+//@import '~ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
+//@import '~ag-grid-community/styles/ag-theme-balham.css'; // Optional theme CSS
+$ag-spacer: 1rem !default;
+.ag-theme-alpine {
+  --ag-font-size: 11px;
+
+  &.ag-popup div.ag-menu.ag-popup-child {
+    width: 220px;
+  }
+
+  .mat-mdc-icon-button.mat-mdc-button-base {
+    padding: 0;
+    height: 34px;
+    width: 34px;
+  }
+
+  .mat-mdc-icon-button .mat-mdc-button-touch-target {
+    height: 34px;
+    width: 34px;
+  }
+
+  .mat-icon {
+    height: 19px;
+    width: 19px;
+  }
+
+  .material-icons {
+    font-size: 19px;
+  }
+
+  .extra-pagination-button {
+    position: relative;
+    left: 18px;
+    top: -40px;
+    width: 135px;
+
+    span {
+      cursor: pointer;
+
+      &.disabled {
+        cursor: not-allowed;
+
+        .text-dark-25 {
+          color: #ddd !important;
+        }
+      }
+
+      &.ml-1 {
+        margin-left: ($ag-spacer * .25) !important;
+      }
+
+      &.ml-2 {
+        margin-left: ($ag-spacer * .5) !important;
+      }
+
+      &.ml-3 {
+        margin-left: $ag-spacer !important;
+      }
+
+      &.reset-filter {
+        top: -5px;
+      }
+
+      i {
+        &[class*=" fa-"] {
+          font-size: unset;
+        }
+
+        &.fa-stack-1x[class*=" fa-"] {
+          font-size: calc(var(--ag-font-size));
+          line-height: unset;
+        }
+
+        &.fa-stack-2x[class*=" fa-"] {
+          font-size: calc(var(--ag-font-size) * 2 + 1px)
+        }
+      }
+    }
+  }
+
+  .ag-standard-button.ag-filter-apply-panel-button {
+    color: #0479d9;
+    background-color: transparent;
+    border: 1px solid #0479d9;
+    border-radius: 0.42rem;
+    padding: 2px 5px;
+
+    &:hover {
+      color: #ffffff;
+      background-color: #0479d9;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .ag-header .ag-header-row {
+    text-transform: uppercase;
+    //font-family: Inter;
+    //font-size: 12px;
+    font-weight: 600;
+    //font-stretch: normal;
+    //font-style: normal;
+    color: #374349;
+
+
+    .align-right {
+      .ag-header-cell-label, .ag-header-group-cell-label {
+        justify-content: flex-end;
+      }
+    }
+
+    .align-center {
+      .ag-header-cell-label, .ag-header-group-cell-label {
+        justify-content: center;
+      }
+    }
+
+    .ag-header-cell-menu-button {
+      cursor: pointer;
+    }
+  }
+
+  .ag-cell.cell-middle-align {
+    display: flex;
+    align-items: center;
+  }
+
+  .material-icons.mat-danger {
+    color: #dc3545;
+  }
+
+  .material-icons.mat-success {
+    color: #198754;
+  }
+
+  app-toggle-cell-editor {
+    padding-left: 10px;
+  }
+}

@@ -1,0 +1,8 @@
+<ng-template [ngIf]="hasData">
+  <span *ngIf="cellValue; else elseBlock" class="badge mr-2" [class]="yesClass">{{yes}}</span>
+  <ng-template #elseBlock>
+  <span [class]="noClass" class="badge mr-2">{{no}}</span>
+  </ng-template>
+</ng-template>
+
+

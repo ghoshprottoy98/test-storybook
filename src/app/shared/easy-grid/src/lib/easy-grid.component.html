@@ -1,0 +1,81 @@
+<!--
+  ~ This file is part of the Easy Grid Angular
+  ~
+  ~ Copyright (c) 2019-2023, BRAC IT SERVICES LIMITED <http://www.bracits.com>
+  ~
+  -->
+
+<div class="ag-theme-alpine w-100" [style.height]="height">
+  <ag-grid-angular
+      style="height: 100%; width: 100%"
+      #agGrid
+      [getRowClass]="getRowClass"
+      [initialState]="initialState"
+      [rowClassRules]="rowClassRules"
+      [rowData]="rowData"
+      [rowHeight]="rowHeight"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [components]="components"
+      [rowBuffer]="rowBuffer"
+      [cacheBlockSize]="cacheBlockSize"
+      [columnTypes]="columnTypes"
+      [rowSelection]="rowSelection"
+      [rowModelType]="rowModelType"
+      [paginationPageSize]="paginationPageSize"
+      [paginationPageSizeSelector]="paginationPageSizeSelector"
+      [paginationAutoPageSize]="paginationAutoPageSize"
+      [cacheOverflowSize]="cacheOverflowSize"
+      [maxConcurrentDatasourceRequests]="maxConcurrentDatasourceRequests"
+      [singleClickEdit]="singleClickEdit"
+      [stopEditingWhenCellsLoseFocus]="stopEditingWhenCellsLoseFocus"
+      [infiniteInitialRowCount]="infiniteInitialRowCount"
+      [maxBlocksInCache]="maxBlocksInCache"
+      [pagination]="pagination"
+      (firstDataRendered)="onFirstDataRendered($event)"
+      [suppressCellFocus]="suppressCellSelection"
+      [suppressMenuHide]="suppressMenuHide"
+      [enableCellTextSelection]="enableCellTextSelection"
+      [suppressPaginationPanel]="suppressPaginationPanel"
+      (selectionChanged)="onSelectionChanged($event)"
+      (filterChanged)="onFilterChanged($event)"
+      (gridReady)="onGridReady($event)"
+      [datasource]="dataSource"
+      [gridOptions]="gridOptions"
+  ></ag-grid-angular>
+  <div *ngIf="pagination && !suppressPaginationPanel" class="extra-pagination-button">
+    <span matTooltip="Auto Size Columns" [matMenuTriggerFor]="menu" class="fa-2x text-hover-primary">
+      <i [hover-class]="'fa-beat'" class="fa-solid fa-table-columns" [class.text-primary]="autoSizeColumnsToFit"></i>
+    </span>
+    <bulk-actions *ngIf="bulkActions.length > 0"
+            [maxSelectionCount]="maxSelectionCount || 0"
+            [total]="totalRecord"
+            [selected]="selectedCount"
+            [actions]="bulkActions" (clicked)="onBulkActionClicked($event)"></bulk-actions>
+    <span matTooltip="Reload" class="fa-2x ml-3 text-hover-primary" (click)="refresh()">
+      <i class="fa-solid fa-sync" [hover-class]="'fa-spin'"></i>
+    </span>
+    <span matTooltip="Reset filter" [hover-class]="'fa-beat-fade'" [class.d-none]="!hasFilter" class="ml-2 reset-filter fa-stack text-hover-primary fa-1x" (click)="resetFilter()">
+      <i class="fa fa-filter fa-stack-1x"></i>
+      <i class="fa-solid fa-ban fa-stack-2x"></i>
+    </span>
+  </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="autoSizeAllColumn()">
+      <mat-icon color="primary">{{autoSizeColumnsToFit === 'all' ?'radio_button_checked':'radio_button_unchecked'}}</mat-icon>
+      <span>All</span>
+    </button>
+    <button mat-menu-item (click)="autoSizeAllColumnSkippingHeader()">
+      <mat-icon color="primary">{{autoSizeColumnsToFit === 'skipHeader' ?'radio_button_checked':'radio_button_unchecked'}}</mat-icon>
+      <span>Skip Header</span>
+    </button>
+    <button mat-menu-item (click)="columnToFitSize()">
+      <mat-icon color="primary">{{autoSizeColumnsToFit === 'size' ?'radio_button_checked':'radio_button_unchecked'}}</mat-icon>
+      <span>Size to Fit</span>
+    </button>
+    <button mat-menu-item (click)="resetColumnSizeState()">
+      <mat-icon color="warn">backspace</mat-icon>
+      <span>Reset</span>
+    </button>
+  </mat-menu>
+</div>

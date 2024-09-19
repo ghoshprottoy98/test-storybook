@@ -1,0 +1,17 @@
+<ng-container *ngIf="actions.length > 0">
+    <span matTooltip="Bulk action" [matMenuTriggerFor]="menu" class="fa-2x ml-3 text-hover-primary">
+        <i class="fa-solid fa-list-check" [hover-class]="'fa-beat'"></i>
+    </span>
+    <mat-menu #menu>
+        <ng-template ngFor let-action [ngForOf]="actions" let-index="index">
+            <ng-template [ngIf]="!shouldHide(action)">
+                <bulk-action [action]="action"
+                             (clicked)="onClicked($event)"
+                             [total]="total"
+                             [eligible]="eligible"
+                             [selected]="selected">
+                </bulk-action>
+            </ng-template>
+        </ng-template>
+    </mat-menu>
+</ng-container>

@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="mt-9">Send {{ notificationType }}</h3>
+        <span class="text-end mt-5 fs-1 cursor-pointer" (click)="onClose()">&times;</span>
+    </div>
+    <div class="card-body pt-3 pb-0 my-0">
+        <div class="row p-3 mb-5" *ngIf="recipients.length > 0 ">
+            <fieldset class="chips-container">
+                <legend>Recipients {{action.bulk?.mode=='filter' ? 'By Filter': ''}}</legend>
+                <div>
+                    <span class="badge badge-dark mt-1 me-2" *ngFor="let value of recipients">{{value}}</span>
+                </div>
+            </fieldset>
+        </div>
+        <div class="row">
+            <form  class="full-width-form">
+                <mat-form-field class="full-width-input" *ngIf="action.bulk?.type=='email'">
+                    <mat-label>Subject</mat-label>
+                    <input required [formControl]="subject" [maxlength]="255"  matInput placeholder="Enter Subject">
+                </mat-form-field>
+
+                <mat-form-field class="full-width-input mb-5">
+                    <mat-label>{{notificationType}} Content</mat-label>
+                    <textarea required [maxlength]="maxLength" [formControl]="body" matInput [rows]="rowSize" [placeholder]=bodyPlaceHolder></textarea>
+                    <mat-hint align="end">{{byteCount}}/{{maxLength}}</mat-hint>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="button-group text-end">
+            <button type="submit" [disabled]="incomplete" class="btn me-2 btn-primary btn-sm" (click)="onSubmit()">
+                <i class="bi bi-send"></i> Send {{ notificationType }}
+            </button>
+        </div>
+    </div>
+</div>

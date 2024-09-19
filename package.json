@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "storybook": "ng run test-storybook:storybook",
+    "build-storybook": "ng run test-storybook:build-storybook"
   },
   "private": true,
   "dependencies": {
@@ -15,9 +17,18 @@
     "@angular/compiler": "^18.2.0",
     "@angular/core": "^18.2.0",
     "@angular/forms": "^18.2.0",
+    "@angular/material": "^18.2.4",
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@bracit/angular": "^15.2.24",
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@ng-bootstrap/ng-bootstrap": "^17.0.1",
+    "ag-grid-angular": "^32.2.0",
+    "ag-grid-community": "^32.2.0",
+    "dayjs": "^1.11.13",
+    "material-icons": "^1.13.12",
+    "ng-inline-svg-2": "^15.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
@@ -26,6 +37,14 @@
     "@angular-devkit/build-angular": "^18.2.4",
     "@angular/cli": "^18.2.4",
     "@angular/compiler-cli": "^18.2.0",
+    "@chromatic-com/storybook": "^1.9.0",
+    "@storybook/addon-essentials": "^8.3.1",
+    "@storybook/addon-interactions": "^8.3.1",
+    "@storybook/addon-links": "^8.3.1",
+    "@storybook/addon-onboarding": "^8.3.1",
+    "@storybook/angular": "^8.3.1",
+    "@storybook/blocks": "^8.3.1",
+    "@storybook/test": "^8.3.1",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
@@ -33,6 +52,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "storybook": "^8.3.1",
     "typescript": "~5.5.2"
   }
 }

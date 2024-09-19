@@ -1,0 +1,18 @@
+<div class="m-2">
+  <ng-container *ngIf="filterOptions.length>1">
+    <select
+            class="filter-type form-select form-select-sm mb-2" data-control="select2"
+            data-hide-search="true"
+            [(ngModel)]="selectedType" (ngModelChange)="onTypeChange()">
+      <option *ngFor="let option of filterOptions" value="{{option}}">{{option|humanize}}</option>
+    </select>
+  </ng-container>
+  <div *ngIf="filterOptions.length<2" class="fs-7 fw-bold flex-shrink-0 m-2">{{ filterOptions[0]|humanize}}</div>
+  <select
+    [(ngModel)]="selectedValue" (ngModelChange)="onChange()"
+    class="form-select form-select-sm" data-control="select2"
+          data-hide-search="true">
+    <option value="">Any</option>
+    <option *ngFor="let option of filterValues" [value]="option.key">{{option.value}}</option>
+  </select>
+</div>
