@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridOptions} from 'ag-grid-community';
 
 @Component({
   selector: 'app-easygrid',
@@ -13,6 +13,7 @@ export class EasygridComponent implements OnInit {
   dataSource: any;
   loaded = false;
   @Input() pagination: boolean = false;
+ 
 
   columnDefs: ColDef[] = [
     {
@@ -45,6 +46,13 @@ export class EasygridComponent implements OnInit {
       cellRenderer: 'booleanCellRenderer'
     },
   ];
+  options: GridOptions = {
+    rowSelection: 'multiple',
+    rowMultiSelectWithClick: true,
+    onRowSelected: (event) => {
+      console.log('Row selected:', event.node.data);
+    }
+  };
 
   constructor(public dialog: MatDialog, private cdr: ChangeDetectorRef) {}
 
@@ -56,8 +64,4 @@ export class EasygridComponent implements OnInit {
     ];
 
   }
-
-
-
-
 }
