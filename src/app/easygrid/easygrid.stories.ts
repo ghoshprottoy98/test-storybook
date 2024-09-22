@@ -21,9 +21,9 @@ type Story = StoryObj<EasygridComponent>;
 export const Basic: Story = {
   args: {
     columnDefs: [
-      { field: 'assessmentName', headerName: 'Assessment Name', filter: 'agTextColumnFilter' },
-      { field: 'assessmentType', headerName: 'Assessment Type', filter: 'agTextColumnFilter' },
-      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer' },
+      { field: 'assessmentName', headerName: 'Assessment Name', lockPosition:true , sortable: false, resizable: false},
+      { field: 'assessmentType', headerName: 'Assessment Type', lockPosition:true , sortable: false, resizable: false},
+      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer', lockPosition:true , sortable: false, resizable: false},
     ],
     dataSource: [
       { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
@@ -49,9 +49,9 @@ export const Basic: Story = {
 export const Action: Story = {
   args: {
     columnDefs: [
-      { field: 'assessmentName', headerName: 'Assessment Name', filter: 'agTextColumnFilter' },
-      { field: 'assessmentType', headerName: 'Assessment Type', filter: 'agTextColumnFilter' },
-      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer' },
+      { field: 'assessmentName', headerName: 'Assessment Name' , lockPosition:true , sortable: false , resizable: false},
+      { field: 'assessmentType', headerName: 'Assessment Type' , lockPosition:true , sortable: false , resizable: false} ,
+      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer', lockPosition:true , sortable: false , resizable: false},
       {
         colId: '__action',
         type: 'actionColumn',
@@ -102,9 +102,9 @@ export const Action: Story = {
 export const Pagination: Story = {
   args: {
     columnDefs: [
-      { field: 'assessmentName', headerName: 'Assessment Name', filter: 'agTextColumnFilter' },
-      { field: 'assessmentType', headerName: 'Assessment Type', filter: 'agTextColumnFilter' },
-      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer' },
+      { field: 'assessmentName', headerName: 'Assessment Name' , lockPosition:true , sortable: false , resizable: false},
+      { field: 'assessmentType', headerName: 'Assessment Type', lockPosition:true  , sortable: false , resizable: false},
+      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer' , lockPosition:true , sortable: false , resizable: false},
     ],
     dataSource: [
       { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
@@ -164,9 +164,9 @@ export const Pagination: Story = {
 export const Filter: Story = {
   args: {
     columnDefs: [
-      { field: 'assessmentName', headerName: 'Assessment Name', filter: 'agTextColumnFilter' },
-      { field: 'assessmentType', headerName: 'Assessment Type', filter: 'agTextColumnFilter' },
-      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer' },
+      { field: 'assessmentName', headerName: 'Assessment Name', filter: 'agTextColumnFilter', lockPosition:true , sortable: false , resizable: false},
+      { field: 'assessmentType', headerName: 'Assessment Type', filter: 'agTextColumnFilter' , lockPosition:true , sortable: false , resizable: false},
+      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer', lockPosition:true , sortable: false , resizable: false} ,
     ],
     dataSource: [
       { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
@@ -194,9 +194,9 @@ export const Filter: Story = {
 export const ColumnReordering: Story = {
   args: {
     columnDefs: [
-      { field: 'assessmentName', headerName: 'Assessment Name', filter: 'agTextColumnFilter' },
-      { field: 'assessmentType', headerName: 'Assessment Type', filter: 'agTextColumnFilter' },
-      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer' },
+      { field: 'assessmentName', headerName: 'Assessment Name' , sortable: false , resizable: false },
+      { field: 'assessmentType', headerName: 'Assessment Type' , sortable: false  , resizable: false},
+      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer' , sortable: false , resizable: false},
     ],
     dataSource: [
       { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
@@ -224,9 +224,9 @@ export const ColumnReordering: Story = {
 export const ColumnResizing: Story = {
   args: {
     columnDefs: [
-      { field: 'assessmentName', headerName: 'Assessment Name', filter: 'agTextColumnFilter', width: 200 },
-      { field: 'assessmentType', headerName: 'Assessment Type', filter: 'agTextColumnFilter', width: 200 },
-      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer', width: 150 },
+      { field: 'assessmentName', headerName: 'Assessment Name', width: 200 , lockPosition:true , sortable: false },
+      { field: 'assessmentType', headerName: 'Assessment Type',  width: 200 , lockPosition:true , sortable: false},
+      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer', width: 150, lockPosition:true , sortable: false},
     ],
     dataSource: [
       { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
@@ -255,9 +255,9 @@ export const ColumnResizing: Story = {
 export const ColumnSorting: Story = {
   args: {
     columnDefs: [
-      { field: 'assessmentName', headerName: 'Assessment Name', filter: 'agTextColumnFilter', sortable: true },
-      { field: 'assessmentType', headerName: 'Assessment Type', filter: 'agTextColumnFilter', sortable: true },
-      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer', sortable: true },
+      { field: 'assessmentName', headerName: 'Assessment Name', sortable: true , lockPosition:true , resizable: false},
+      { field: 'assessmentType', headerName: 'Assessment Type', sortable: true , lockPosition:true , resizable: false},
+      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer', sortable: true,lockPosition:true , resizable: false },
     ],
     dataSource: [
       { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
@@ -282,3 +282,5 @@ export const ColumnSorting: Story = {
     },
   },
 };
+
+
