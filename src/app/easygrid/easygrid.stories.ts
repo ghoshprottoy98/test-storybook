@@ -46,48 +46,32 @@ export const Basic: Story = {
   },
 };
 
-export const Action: Story = {
+export const ActionButtons: Story = {
   args: {
     columnDefs: [
-      { field: 'assessmentName', headerName: 'Assessment Name' , lockPosition:true , sortable: false , resizable: false},
-      { field: 'assessmentType', headerName: 'Assessment Type' , lockPosition:true , sortable: false , resizable: false} ,
-      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer', lockPosition:true , sortable: false , resizable: false},
+      { field: 'assessmentName', headerName: 'Assessment Name', lockPosition: true, sortable: false, resizable: false },
+      { field: 'assessmentType', headerName: 'Assessment Type', lockPosition: true, sortable: false, resizable: false },
+      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer', lockPosition: true, sortable: false, resizable: false },
       {
-        colId: '__action',
-        type: 'actionColumn',
-        cellRendererParams: {
-          actions: [
-            {
-              title: 'Remove',
-              icon: 'fa-trash',
-              iconOnly: false,
-              class: 'danger'
-            },
-            {
-              id: 'download_bulk',
-              title: 'Download XLSX',
-              icon: 'fa-download',
-              iconOnly: true,
-              bulk: {
-                mode: 'filter',
-                url: false
-              }
-            }
-          ]
+        headerName: 'Actions',
+        cellRenderer: (params: any) => {
+          const removeButton = `<button class="btn btn-danger btn-sm" style="margin-right: 5px;">Remove</button>`;
+          const downloadButton = `<button class="btn btn-primary btn-sm">Download</button>`;
+          return `${removeButton}${downloadButton}`;
         },
-        width: 150
+        width: 150,
       }
     ],
     dataSource: [
       { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
       { assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false },
       { assessmentName: 'History Exam', assessmentType: 'Test', isActive: true },
-    ],
+    ]
   },
   parameters: {
     docs: {
       description: {
-        story: 'This story demonstrates the `Easygrid Component` with an action column that includes actions like Remove and Download buttons.',
+        story: 'This story demonstrates the `Easygrid Component` with an Action column. The Action column contains buttons for each row (Remove and Download). Clicking on these buttons triggers respective actions.',
       },
       source: {
         code: `
@@ -98,6 +82,7 @@ export const Action: Story = {
     },
   },
 };
+
 
 export const Pagination: Story = {
   args: {
@@ -620,6 +605,241 @@ export const ValueFormatter: Story = {
     },
   },
 };
+
+export const CellValueGetterSum: Story = {
+  args: {
+    columnDefs: [
+      {
+        field: 'assessmentName',
+        headerName: 'Assessment Name',
+        lockPosition: true,
+        sortable: false,
+        resizable: false,
+      },
+      {
+        field: 'value1',
+        headerName: 'Value 1',
+        filter: 'agNumberColumnFilter',
+        lockPosition: true,
+        sortable: false,
+        resizable: false,
+      },
+      {
+        field: 'value2',
+        headerName: 'Value 2',
+        filter: 'agNumberColumnFilter',
+        lockPosition: true,
+        sortable: false,
+        resizable: false,
+      },
+      {
+        headerName: 'Sum',
+        valueGetter: (params) => {
+          return params.data.value1 + params.data.value2;
+        },
+        lockPosition: true,
+        sortable: false,
+        resizable: false,
+      },
+    ],
+    dataSource: [
+      { assessmentName: 'Math Test', value1: 10, value2: 15 },
+      { assessmentName: 'Science Project', value1: 20, value2: 25 },
+      { assessmentName: 'History Exam', value1: 30, value2: 35 },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story demonstrates the `Easygrid Component` with a cell value getter that computes the sum of two numerical columns (`value1` and `value2`) and displays it in the "Sum" column.',
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" [gridOptions]="options"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
+
+
+export const CellDataTypes: Story = {
+  args: {
+    columnDefs: [
+      {
+        field: 'assessmentName',
+        headerName: 'Assessment Name',
+        valueFormatter: (params) => {
+          return params.value ? params.value.toUpperCase() : '';
+        },
+      },
+      {
+        field: 'score',
+        headerName: 'Score',
+        valueFormatter: (params) => {
+          return params.value ? params.value.toFixed(2) : '0.00';
+        },
+      },
+      {
+        field: 'isActive',
+        headerName: 'Active',
+        cellRenderer: (params:any) => {
+          return params.value ? 'Yes' : 'No';
+        },
+      },
+      {
+        field: 'lastUpdated',
+        headerName: 'Last Updated',
+        valueFormatter: (params) => {
+          const date = new Date(params.value);
+          return date ? date.toLocaleDateString() : '';
+        },
+      },
+    ],
+    dataSource: [
+      { assessmentName: 'Math Test', score: 87.34, isActive: true, lastUpdated: '2024-09-01' },
+      { assessmentName: 'Science Project', score: 92.56, isActive: false, lastUpdated: '2024-09-15' },
+      { assessmentName: 'History Exam', score: 78.23, isActive: true, lastUpdated: '2024-08-21' },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story demonstrates the `Easygrid Component` with various cell data types including text, number, boolean, and date fields. Each field uses appropriate formatting or rendering for its respective data type.',
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" autoSizeColumnsToFit="size"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
+
+export const CellReferenceData: Story = {
+  args: {
+    columnDefs: [
+      {
+        field: 'assessmentId',
+        headerName: 'Assessment ID',
+      },
+      {
+        field: 'assessmentName',
+        headerName: 'Assessment Name',
+        valueGetter: (params) => {
+          const assessmentLookup: { [key: number]: string } = {
+            1: 'Math Test',
+            2: 'Science Project',
+            3: 'History Exam',
+          };
+
+          const assessmentId = params.data.assessmentId as number;
+          return assessmentLookup[assessmentId] || 'Unknown';
+        },
+      },
+      {
+        field: 'score',
+        headerName: 'Score',
+        valueFormatter: (params) => {
+          return params.value ? params.value.toFixed(2) : '0.00';
+        },
+      },
+      {
+        field: 'isActive',
+        headerName: 'Active',
+        cellRenderer: (params:any) => {
+          return params.value ? 'Yes' : 'No';
+        },
+      },
+    ],
+    dataSource: [
+      { assessmentId: 1, score: 87.34, isActive: true },
+      { assessmentId: 2, score: 92.56, isActive: false },
+      { assessmentId: 3, score: 78.23, isActive: true },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story demonstrates the `Easygrid Component` with cell reference data. The `assessmentId` column is cross-referenced with an external lookup object to display human-readable assessment names.',
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" autoSizeColumnsToFit="size"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
+
+
+export const CellTextEditing: Story = {
+  args: {
+    columnDefs: [
+      {
+        field: 'assessmentName',
+        headerName: 'Assessment Name',
+        editable: true,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        field: 'assessmentType',
+        headerName: 'Assessment Type',
+        editable: true,
+        cellEditor: 'agSelectCellEditor',
+        cellEditorParams: {
+          values: ['Quiz', 'Homework', 'Test', 'Project'],
+        },
+        filter: 'agTextColumnFilter',
+      },
+      {
+        field: 'score',
+        headerName: 'Score',
+        editable: true,
+        valueFormatter: (params) => {
+          return params.value ? params.value.toFixed(2) : '0.00';
+        },
+      },
+      {
+        field: 'isActive',
+        headerName: 'Active',
+        cellRenderer: (params:any) => {
+          return params.value ? 'Yes' : 'No';
+        },
+      },
+    ],
+    dataSource: [
+      { assessmentName: 'Math Test', assessmentType: 'Quiz', score: 87.34, isActive: true },
+      { assessmentName: 'Science Project', assessmentType: 'Homework', score: 92.56, isActive: false },
+      { assessmentName: 'History Exam', assessmentType: 'Test', score: 78.23, isActive: true },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story showcases the `Easygrid Component` with editable cells, allowing users to change text in specified columns.',
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" autoSizeColumnsToFit="size"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
+
+
+
+
+
+
+
+
+
 
 
 

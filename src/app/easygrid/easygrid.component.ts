@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColDef, GridOptions} from 'ag-grid-community';
+import { ColDef, GridOptions, } from 'ag-grid-community';
 
 @Component({
   selector: 'app-easygrid',
@@ -13,7 +13,6 @@ export class EasygridComponent implements OnInit {
   dataSource: any;
   loaded = false;
   @Input() pagination: boolean = false;
- 
 
   columnDefs: ColDef[] = [
     {
