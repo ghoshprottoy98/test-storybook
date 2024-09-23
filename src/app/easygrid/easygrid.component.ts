@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColDef, GridOptions, } from 'ag-grid-community';
+import { ColDef, GridOptions } from 'ag-grid-community';
 
 @Component({
   selector: 'app-easygrid',
@@ -50,7 +50,7 @@ export class EasygridComponent implements OnInit {
     rowMultiSelectWithClick: true,
     onRowSelected: (event) => {
       console.log('Row selected:', event.node.data);
-    }
+    },
   };
 
   constructor(public dialog: MatDialog, private cdr: ChangeDetectorRef) {}
@@ -61,6 +61,7 @@ export class EasygridComponent implements OnInit {
       { assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false },
       { assessmentName: 'History Exam', assessmentType: 'Test', isActive: true }
     ];
-
   }
+
+  
 }

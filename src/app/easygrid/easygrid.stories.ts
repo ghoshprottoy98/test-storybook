@@ -10,6 +10,7 @@ const meta: Meta<EasygridComponent> = {
   decorators: [
     moduleMetadata({
       imports: [EasyGridModule],
+      declarations: [EasygridComponent],
     }),
   ],
 };
@@ -561,6 +562,39 @@ export const RowSelection: Story = {
   },
 };
 
+export const AggregateFunctions: Story = {
+  args: {
+    columnDefs: [
+      { field: 'studentName', headerName: 'Student Name', lockPosition: true },
+      { field: 'scores', headerName: 'Scores', valueGetter: (params) => params.data.scores.join(', ') },
+      { headerName: 'Sum', valueGetter: (params) => params.data.scores.reduce((a: any, b: any) => a + b, 0), aggFunc: 'sum' },
+      { headerName: 'Max', valueGetter: (params) => Math.max(...params.data.scores), aggFunc: 'max' },
+      { headerName: 'Min', valueGetter: (params) => Math.min(...params.data.scores), aggFunc: 'min' },
+      { headerName: 'Avg', valueGetter: (params) => params.data.scores.reduce((a: any, b: any) => a + b, 0) / params.data.scores.length, aggFunc: 'avg' },
+    ],
+    dataSource: [
+      { studentName: 'Alice Johnson', scores: [87.34, 90.12, 85.00, 88.75, 91.50]},
+      { studentName: 'Bob Smith', scores: [92.56, 85.00, 78.90, 80.00, 82.34] },
+      { studentName: 'Charlie Brown', scores: [78.23, 81.50, 76.00, 79.25, 80.00]},
+      { studentName: 'Diana Prince', scores: [90.45, 92.10, 88.88, 91.00, 93.50]},
+      { studentName: 'Edward Elric', scores: [85.75, 87.00, 89.45, 82.00, 84.00]},
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story demonstrates the `Easygrid Component` with aggregate functions (Sum, Max, Min, Avg) for student scores.',
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" autoSizeColumnsToFit="size"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
+
 
 export const ValueFormatter: Story = {
   args: {
@@ -619,7 +653,6 @@ export const CellValueGetterSum: Story = {
       {
         field: 'value1',
         headerName: 'Value 1',
-        filter: 'agNumberColumnFilter',
         lockPosition: true,
         sortable: false,
         resizable: false,
@@ -627,7 +660,6 @@ export const CellValueGetterSum: Story = {
       {
         field: 'value2',
         headerName: 'Value 2',
-        filter: 'agNumberColumnFilter',
         lockPosition: true,
         sortable: false,
         resizable: false,
@@ -789,11 +821,20 @@ export const CellTextEditing: Story = {
         field: 'assessmentType',
         headerName: 'Assessment Type',
         editable: true,
-        cellEditor: 'agSelectCellEditor',
+        cellEditor: 'agSelectCellEditor', 
         cellEditorParams: {
-          values: ['Quiz', 'Homework', 'Test', 'Project'],
+          values: ['Quiz', 'Homework', 'Test', 'Project'], 
         },
         filter: 'agTextColumnFilter',
+      },
+      {
+        field: 'date',
+        headerName: 'Date',
+        editable: true,
+        cellEditor: 'agDateCellEditor', 
+        valueFormatter: (params) => {
+          return params.value ? new Date(params.value).toLocaleDateString() : '';
+        },
       },
       {
         field: 'score',
@@ -806,21 +847,29 @@ export const CellTextEditing: Story = {
       {
         field: 'isActive',
         headerName: 'Active',
+        editable: true,
+        cellEditor: 'agCheckboxCellEditor',
         cellRenderer: (params:any) => {
           return params.value ? 'Yes' : 'No';
         },
       },
     ],
     dataSource: [
-      { assessmentName: 'Math Test', assessmentType: 'Quiz', score: 87.34, isActive: true },
-      { assessmentName: 'Science Project', assessmentType: 'Homework', score: 92.56, isActive: false },
-      { assessmentName: 'History Exam', assessmentType: 'Test', score: 78.23, isActive: true },
+      { assessmentName: 'Math Test', assessmentType: 'Quiz', date: new Date(), score: 87.34, isActive: true },
+      { assessmentName: 'Science Project', assessmentType: 'Homework', date: new Date(), score: 92.56, isActive: false },
+      { assessmentName: 'History Exam', assessmentType: 'Test', date: new Date(), score: 78.23, isActive: true },
     ],
+    options: {
+      onCellValueChanged: (event) => {
+        console.log('Cell value changed:', event);
+      },
+      rowSelection: 'single',
+    },
   },
   parameters: {
     docs: {
       description: {
-        story: 'This story showcases the `Easygrid Component` with editable cells, allowing users to change text in specified columns.',
+        story: 'This story showcases the `Easygrid Component` with editable cells, including a dropdown for the Assessment Type, a date picker, and a checkbox for Active status.',
       },
       source: {
         code: `
@@ -831,6 +880,7 @@ export const CellTextEditing: Story = {
     },
   },
 };
+
 
 
 
