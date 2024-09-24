@@ -534,6 +534,151 @@ export const RowSelection: Story = {
   },
 };
 
+export const RowHeight: Story = {
+  args: {
+    columnDefs: [
+      { field: 'assessmentName', headerName: 'Assessment Name', lockPosition: true, sortable: false, resizable: false },
+      { field: 'assessmentType', headerName: 'Assessment Type', lockPosition: true, sortable: false, resizable: false },
+      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer', lockPosition: true, sortable: false, resizable: false },
+    ],
+    dataSource: [
+      { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
+      { assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false },
+      { assessmentName: 'History Exam', assessmentType: 'Test', isActive: true },
+      { assessmentName: 'Geography Assignment', assessmentType: 'Project', isActive: false },
+      { assessmentName: 'Physics Lab', assessmentType: 'Experiment', isActive: true },
+    ],
+    options: {
+      getRowHeight: (params) => {
+        return params.data.isActive ? 50 : 70; 
+      },
+    },
+  },
+  render: (args) => ({
+    props: args,
+    template: `
+    <app-easy-grid
+      [columnDefs]="columnDefs"
+      [rowData]="dataSource"
+      [pagination]="false" 
+      [gridOptions]="options"
+      autoSizeColumnsToFit="size">
+    </app-easy-grid>
+`,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story showcases the `Easygrid Component` with rows of varying heights based on data properties.',
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" [gridOptions]="options" autoSizeColumnsToFit="size"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
+
+
+export const AccessingRowsByRowID: Story = {
+  args: {
+    columnDefs: [
+      { field: 'assessmentName', headerName: 'Assessment Name', lockPosition: true, sortable: false, resizable: false },
+      { field: 'assessmentType', headerName: 'Assessment Type', lockPosition: true, sortable: false, resizable: false },
+      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer', lockPosition: true, sortable: false, resizable: false },
+    ],
+    dataSource: [
+      { id: 1, assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
+      { id: 2, assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false },
+      { id: 3, assessmentName: 'History Exam', assessmentType: 'Test', isActive: true },
+      { id: 4, assessmentName: 'Geography Assignment', assessmentType: 'Project', isActive: false },
+      { id: 5, assessmentName: 'Physics Lab', assessmentType: 'Experiment', isActive: true },
+    ],
+    options: {
+      getRowId: (params) => {
+        return params.data.id; 
+      },
+      onRowSelected: (event) => {
+        const selectedRowData = event.node.data;
+        console.log('Selected Row Data:', selectedRowData);
+      },
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story demonstrates how to access row data by row ID in the `Easygrid Component`. Selecting a row logs its data to the console.',
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" [gridOptions]="options" autoSizeColumnsToFit="size"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
+
+export const RowDragging: Story = {
+  args: {
+    columnDefs: [
+      { 
+        field: 'assessmentName', 
+        headerName: 'Assessment Name', 
+        lockPosition: true, 
+        sortable: false, 
+        resizable: false,
+        rowDrag: true 
+      },
+      { 
+        field: 'assessmentType', 
+        headerName: 'Assessment Type', 
+        lockPosition: true, 
+        sortable: false, 
+        resizable: false 
+      },
+      { 
+        headerName: 'Active', 
+        field: 'isActive', 
+        cellRenderer: 'booleanCellRenderer', 
+        lockPosition: true, 
+        sortable: false, 
+        resizable: false 
+      },
+    ],
+    dataSource: [
+      { id: 1, assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
+      { id: 2, assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false },
+      { id: 3, assessmentName: 'History Exam', assessmentType: 'Test', isActive: true },
+      { id: 4, assessmentName: 'Geography Assignment', assessmentType: 'Project', isActive: false },
+      { id: 5, assessmentName: 'Physics Lab', assessmentType: 'Experiment', isActive: true },
+    ],
+    options: {
+      rowDragManaged: true,
+      animateRows: true,
+      onRowDragEnd: (event) => {
+        console.log('Row drag ended:', event.node.data);
+      },
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story demonstrates the row dragging functionality in the `Easygrid Component`. Users can drag rows to reorder them.',
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" [gridOptions]="options" autoSizeColumnsToFit="size"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
+
+
 export const AggregateFunctions: Story = {
   args: {
     columnDefs: [
