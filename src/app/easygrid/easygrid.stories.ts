@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { EasygridComponent } from './easygrid.component';
 import { moduleMetadata } from '@storybook/angular';
 import { EasyGridModule } from '../shared/easy-grid/src/public-api';
+import { ColGroupDef } from 'ag-grid-community';
 
 const meta: Meta<EasygridComponent> = {
   title: 'Components/Easygrid',
@@ -13,6 +14,19 @@ const meta: Meta<EasygridComponent> = {
       declarations: [EasygridComponent],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Easygrid component with static data and custom column definitions.',
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" autoSizeColumnsToFit="size"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
 };
 
 export default meta;
@@ -42,7 +56,7 @@ export const Basic: Story = {
           <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" autoSizeColumnsToFit="size"></app-easy-grid>
         `,
         language: 'html',
-      },
+      },     
     },
   },
 };
@@ -304,6 +318,68 @@ export const ColumnPinning: Story = {
     docs: {
       description: {
         story: 'This story showcases the `Easygrid Component` with column pinning functionality. The "Assessment Name" and "Assessment Type" columns are pinned to the left, ensuring they remain visible while users scroll through the grid. The "Active" column is pinned to the right, providing quick access to the status of each assessment. This layout enhances the usability of the grid by allowing users to maintain context on key information as they navigate through the data.'
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" autoSizeColumnsToFit="size"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
+
+export const ColumnGroups: Story = {
+  args: {
+    columnDefs: [
+      {
+        headerName: 'Assessment Information',
+        children: [
+          { field: 'assessmentName', headerName: 'Assessment Name', lockPosition: true, sortable: false, resizable: false },
+          { field: 'assessmentType', headerName: 'Assessment Type', lockPosition: true, sortable: false, resizable: false },
+        ],
+      } as ColGroupDef,
+      {
+        headerName: 'Status',
+        children: [
+          { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer', lockPosition: true, sortable: false, resizable: false },
+        ],
+      } as ColGroupDef,
+    ],
+    dataSource: [
+      {
+        assessmentName: 'Math Test',
+        assessmentType: 'Quiz',
+        isActive: true,
+        children: [
+          { assessmentName: 'Algebra', assessmentType: 'Quiz', isActive: true },
+          { assessmentName: 'Geometry', assessmentType: 'Quiz', isActive: true },
+        ],
+      },
+      {
+        assessmentName: 'Science Project',
+        assessmentType: 'Homework',
+        isActive: false,
+        children: [
+          { assessmentName: 'Biology', assessmentType: 'Project', isActive: false },
+          { assessmentName: 'Chemistry', assessmentType: 'Project', isActive: false },
+        ],
+      },
+      {
+        assessmentName: 'History Exam',
+        assessmentType: 'Test',
+        isActive: true,
+        children: [
+          { assessmentName: 'World History', assessmentType: 'Test', isActive: true },
+          { assessmentName: 'US History', assessmentType: 'Test', isActive: true },
+        ],
+      },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story demonstrates the `Easygrid Component` with column groups. Each main assessment can have sub-assessments, allowing for a more organized view of the data.',
       },
       source: {
         code: `
@@ -678,6 +754,40 @@ export const RowDragging: Story = {
   },
 };
 
+export const FullWidthRow: Story = {
+  args: {
+    columnDefs: [
+      { field: 'assessmentName', headerName: 'Assessment Name', lockPosition: true, sortable: false, resizable: false },
+      { field: 'assessmentType', headerName: 'Assessment Type', lockPosition: true, sortable: false, resizable: false },
+      { headerName: 'Active', field: 'isActive', cellRenderer: 'booleanCellRenderer', lockPosition: true, sortable: false, resizable: false },
+      {
+        headerName: 'Details',
+        cellRenderer: (params: any) => {
+          return `<div style="width: 100%; background-color: #aaaaaa; ">Full Width Row Content: ${params.data.assessmentName}</div>`;
+        },
+        width: 300,
+      }
+    ],
+    dataSource: [
+      { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
+      { assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false },
+      { assessmentName: 'History Exam', assessmentType: 'Test', isActive: true },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story showcases the `Easygrid Component` with a full-width row effect. The Details column contains content that spans the full width of the grid, providing additional context for each assessment.',
+      },
+      source: {
+        code: `
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" autoSizeColumnsToFit="size"></app-easy-grid>
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
 
 export const AggregateFunctions: Story = {
   args: {

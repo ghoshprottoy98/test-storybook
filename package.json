@@ -24,12 +24,14 @@
     "@bracit/angular": "^15.2.24",
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@ng-bootstrap/ng-bootstrap": "^17.0.1",
+    "@storybook/addon-storysource": "^8.3.2",
     "ag-grid-angular": "^32.2.0",
     "ag-grid-community": "^32.2.0",
     "dayjs": "^1.11.13",
     "material-icons": "^1.13.12",
     "ng-inline-svg-2": "^15.0.1",
     "rxjs": "~7.8.0",
+    "storybook-addon-preview": "^2.3.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
@@ -38,6 +40,8 @@
     "@angular/cli": "^18.2.4",
     "@angular/compiler-cli": "^18.2.0",
     "@chromatic-com/storybook": "^1.9.0",
+    "@storybook/addon-controls": "^8.3.2",
+    "@storybook/addon-docs": "^8.3.2",
     "@storybook/addon-essentials": "^8.3.1",
     "@storybook/addon-interactions": "^8.3.1",
     "@storybook/addon-links": "^8.3.1",
@@ -53,6 +57,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "storybook": "^8.3.1",
+    "storybook-addon-info": "^1.0.0-alpha",
     "typescript": "~5.5.2"
   }
 }

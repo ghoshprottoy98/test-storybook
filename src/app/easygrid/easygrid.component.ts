@@ -51,6 +51,7 @@ export class EasygridComponent implements OnInit {
     onRowSelected: (event) => {
       console.log('Row selected:', event.node.data);
     },
+    
   };
 
   constructor(public dialog: MatDialog, private cdr: ChangeDetectorRef) {}
@@ -61,7 +62,5 @@ export class EasygridComponent implements OnInit {
       { assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false },
       { assessmentName: 'History Exam', assessmentType: 'Test', isActive: true }
     ];
-  }
-
-  
+  }  
 }
