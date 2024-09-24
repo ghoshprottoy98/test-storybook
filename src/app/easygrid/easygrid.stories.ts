@@ -455,72 +455,44 @@ export const RowSorting: Story = {
   },
 };
 
+const rowSpan = (params: any) => {
+  const equivalenceCourses = params.data.equivalenceCourses;
+  return equivalenceCourses && equivalenceCourses.length > 1 ? equivalenceCourses.length : 1;
+};
+
 export const RowSpanning: Story = {
   args: {
     columnDefs: [
-      { 
-        field: 'athlete', 
-        headerName: 'Athlete', 
-        autoHeight: true,
-        rowSpan: function(params){
-          const athlete = params.data.athlete;
-          if (athlete === "Aleksey Nemov") {
-            return 2;
-          } else if (athlete === "Ryan Lochte") {
-            return 4; 
-          } else {
-            return 1; 
-          }
+      { field: 'courseCode', headerName: 'Course Code', sortable: true, resizable: true },
+      {
+        field: 'equivalenceCourses',
+        headerName: 'Equivalence Courses',
+        rowSpan: rowSpan, 
+        cellRenderer: (params: any) => {
+          const courses = params.data.equivalenceCourses;
+          return courses ? courses.join(', ') : '';
         },
-        cellClassRules: {
-          'cell-span': "value==='Aleksey Nemov' || value==='Ryan Lochte'",
-        },
-        width: 200 
+        autoHeight: true, 
       },
-      { field: 'age', headerName: 'Age', width: 100 },
-      { field: 'country', headerName: 'Country' },
-      { field: 'year', headerName: 'Year', width: 100 },
-      { field: 'date', headerName: 'Date' },
-      { field: 'sport', headerName: 'Sport' },
-      { field: 'gold', headerName: 'Gold Medals' },
-      { field: 'silver', headerName: 'Silver Medals' },
-      { field: 'bronze', headerName: 'Bronze Medals' },
-      { field: 'total', headerName: 'Total Medals' },
     ],
     dataSource: [
-      { athlete: 'Aleksey Nemov', age: 28, country: 'Russia', year: 2000, date: '2000-09-01', sport: 'Gymnastics', gold: 1, silver: 0, bronze: 0, total: 1 },
-      { athlete: 'Ryan Lochte', age: 27, country: 'United States', year: 2012, date: '2012-08-05', sport: 'Swimming', gold: 2, silver: 0, bronze: 0, total: 2 },
-      { athlete: 'Michael Phelps', age: 23, country: 'United States', year: 2008, date: '2008-08-17', sport: 'Swimming', gold: 8, silver: 0, bronze: 0, total: 8 },
-      { athlete: 'Usain Bolt', age: 30, country: 'Jamaica', year: 2016, date: '2016-08-14', sport: 'Athletics', gold: 3, silver: 0, bronze: 0, total: 3 },
-      { athlete: 'Ryan Lochte', age: 32, country: 'United States', year: 2016, date: '2016-08-12', sport: 'Swimming', gold: 1, silver: 0, bronze: 0, total: 1 },
-      { athlete: 'Aleksey Nemov', age: 30, country: 'Russia', year: 2004, date: '2004-08-20', sport: 'Gymnastics', gold: 0, silver: 2, bronze: 1, total: 3 },
+      { courseCode: 'MATH101', equivalenceCourses: ['MATH102', 'MATH103'] },
+      { courseCode: 'PHYS101', equivalenceCourses: ['PHYS102'] },
+      { courseCode: 'CHEM101', equivalenceCourses: ['CHEM102', 'CHEM103', 'CHEM104'] },
     ],
+    options: {
+      suppressRowTransform: true, 
+      domLayout: 'autoHeight',
+    },
   },
-  render: (args) => ({
-    props: args,
-    template: `
-    <app-easy-grid
-      style="width: 100%; height: 100%;"
-      [columnDefs]="columnDefs"
-      [rowData]="dataSource"
-      autoSizeColumnsToFit="size"
-      [pagination]="false"
-      >
-    </app-easy-grid>
-`,
-  }),
   parameters: {
     docs: {
       description: {
-        story: 'This story demonstrates the `Easygrid Component` with row spanning functionality. The "Athlete" column dynamically spans multiple rows based on the athlete’s name. For the athlete "Aleksey Nemov," the rows span 2 rows, while for "Ryan Lochte," they span 4 rows. Other athletes occupy a single row. This feature enhances data organization and clarity by visually grouping related information together.'
+        story: 'This story showcases the `Easygrid Component` with a rowSpan feature. Rows that contain multiple equivalence courses will span the appropriate number of rows.',
       },
       source: {
         code: `
-          <app-easy-grid 
-            [columnDefs]="columnDefs" 
-            [rowData]="rowData" 
-            autoSizeColumnsToFit="size">
-          </app-easy-grid>
+          <app-easy-grid [columnDefs]="columnDefs" [rowData]="dataSource" autoSizeColumnsToFit="size"></app-easy-grid>
         `,
         language: 'html',
       },
