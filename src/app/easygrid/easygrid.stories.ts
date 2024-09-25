@@ -29,6 +29,79 @@ const meta: Meta<EasygridComponent> = {
   },
 };
 
+
+export const Playground: Story = {
+  args: {
+    columnDefs: [
+      { field: 'assessmentName', headerName: 'Assessment Name' , filter: 'agTextColumnFilter',  width: 150, lockPosition:false , sortable: true , resizable: true, rowDrag: true, checkboxSelection: true, editable: true, pinned: 'left' },
+      { field: 'assessmentType', headerName: 'Assessment Type', filter: 'agTextColumnFilter', width: 200, cellStyle: { backgroundColor: '#71797E' }, lockPosition: false , sortable: true , resizable: true, rowDrag: true , editable: true, pinned: 'left' },
+      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer' ,  width: 200, lockPosition:false , sortable: true , resizable: true, rowDrag: true, editable: true, pinned: 'right' },
+    ],
+    dataSource: [
+      { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
+      { assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false },
+      { assessmentName: 'History Exam', assessmentType: 'Test', isActive: true },
+      { assessmentName: 'Geography Assignment', assessmentType: 'Homework', isActive: true },
+      { assessmentName: 'English Essay', assessmentType: 'Assignment', isActive: false },
+      { assessmentName: 'Physics Lab', assessmentType: 'Experiment', isActive: true },
+      { assessmentName: 'Biology Quiz', assessmentType: 'Quiz', isActive: false },
+      { assessmentName: 'Chemistry Homework', assessmentType: 'Homework', isActive: true },
+      { assessmentName: 'Computer Science Project', assessmentType: 'Project', isActive: false },
+      { assessmentName: 'Art Assignment', assessmentType: 'Assignment', isActive: true },
+      { assessmentName: 'Music Test', assessmentType: 'Test', isActive: false },
+      { assessmentName: 'Drama Rehearsal', assessmentType: 'Performance', isActive: true },
+      { assessmentName: 'Economics Project', assessmentType: 'Project', isActive: false },
+      { assessmentName: 'Philosophy Essay', assessmentType: 'Essay', isActive: true },
+      { assessmentName: 'Sociology Quiz', assessmentType: 'Quiz', isActive: false },
+      { assessmentName: 'Geography Test', assessmentType: 'Test', isActive: true },
+      { assessmentName: 'Psychology Assignment', assessmentType: 'Assignment', isActive: false },
+      { assessmentName: 'Statistics Homework', assessmentType: 'Homework', isActive: true },
+      { assessmentName: 'Engineering Lab', assessmentType: 'Experiment', isActive: true },
+      { assessmentName: 'Astronomy Project', assessmentType: 'Project', isActive: false },
+      { assessmentName: 'Environmental Science Test', assessmentType: 'Test', isActive: true },
+    ],
+    options: {
+      rowSelection: 'multiple',
+      rowDragManaged: true,
+      animateRows: true,
+      onRowDragEnd: (event) => {
+        console.log('Row drag ended:', event.node.data);
+    },
+    },
+    pagination: true,
+  },
+  argTypes: {
+    pagination: { control: 'boolean' },  
+  },
+  render: (args) => ({
+    props: args,
+    template: `
+    <app-easy-grid
+      [columnDefs]="columnDefs"
+      [rowData]="dataSource"
+      [pagination]="pagination" 
+      autoSizeColumnsToFit="size"
+       [gridOptions]="options" 
+       >
+    </app-easy-grid>
+`,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story demonstrates the `Easygrid Component`.',
+      },
+      source: {
+        code: `
+        
+        `,
+        language: 'html',
+      },
+    },
+  },
+};
+
+
 export default meta;
 
 type Story = StoryObj<EasygridComponent>;
@@ -706,14 +779,13 @@ export const RowDragging: Story = {
         lockPosition: true, 
         sortable: false, 
         resizable: false,
-        rowDrag: true 
       },
       { 
         field: 'assessmentType', 
         headerName: 'Assessment Type', 
         lockPosition: true, 
         sortable: false, 
-        resizable: false 
+        resizable: false,
       },
       { 
         headerName: 'Active', 
@@ -721,7 +793,7 @@ export const RowDragging: Story = {
         cellRenderer: 'booleanCellRenderer', 
         lockPosition: true, 
         sortable: false, 
-        resizable: false 
+        resizable: false,
       },
     ],
     dataSource: [
