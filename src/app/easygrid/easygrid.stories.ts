@@ -35,7 +35,7 @@ export const Playground: Story = {
     columnDefs: [
       { field: 'assessmentName', headerName: 'Assessment Name' ,  filter: 'agTextColumnFilter', lockPosition:false , sortable: true , resizable: true, rowDrag: true, checkboxSelection: true, editable: true, pinned: 'left' },
       { field: 'assessmentType', headerName: 'Assessment Type',  cellEditor: 'agSelectCellEditor', cellEditorParams: {values: ['Quiz', 'Homework', 'Test', 'Project'], }, filter: 'agTextColumnFilter', cellStyle: { backgroundColor: '#71797E' }, lockPosition: false , sortable: true , resizable: true, rowDrag: true , editable: true, pinned: 'left' },
-      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer' , lockPosition:false , sortable: true , resizable: true, rowDrag: true, editable: true, pinned: 'right' },
+      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer' , lockPosition:false , sortable: true , resizable: true, rowDrag: true, editable: true, pinned: 'right', lockPinned: true },
       { 
         headerName: 'Submission Date (Formatted)', 
         field: 'submissionDate', 
@@ -46,7 +46,11 @@ export const Playground: Story = {
           const date = new Date(params.value);
           return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         },
-        pinned: 'left' 
+        lockPosition:false , 
+        sortable: true , 
+        resizable: true, 
+        rowDrag: true,
+        pinned: 'left',
       },
     ],
     dataSource: [
@@ -101,11 +105,18 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'This story demonstrates the `Easygrid Component`. User cna change the controls to see different options',
+        story: 'This story demonstrates the `Easygrid Component`. User can change the controls to see different options',
       },
       source: {
         code: `
-        
+         <app-easy-grid
+      [columnDefs]="columnDefs"
+      [rowData]="dataSource"
+      [pagination]="pagination" 
+      autoSizeColumnsToFit="size"
+       [gridOptions]="options" 
+       >
+    </app-easy-grid>s
         `,
         language: 'html',
       },
