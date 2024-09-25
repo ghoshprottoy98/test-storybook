@@ -33,32 +33,44 @@ const meta: Meta<EasygridComponent> = {
 export const Playground: Story = {
   args: {
     columnDefs: [
-      { field: 'assessmentName', headerName: 'Assessment Name' , filter: 'agTextColumnFilter',  width: 150, lockPosition:false , sortable: true , resizable: true, rowDrag: true, checkboxSelection: true, editable: true, pinned: 'left' },
-      { field: 'assessmentType', headerName: 'Assessment Type', filter: 'agTextColumnFilter', width: 200, cellStyle: { backgroundColor: '#71797E' }, lockPosition: false , sortable: true , resizable: true, rowDrag: true , editable: true, pinned: 'left' },
-      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer' ,  width: 200, lockPosition:false , sortable: true , resizable: true, rowDrag: true, editable: true, pinned: 'right' },
+      { field: 'assessmentName', headerName: 'Assessment Name' ,  filter: 'agTextColumnFilter', lockPosition:false , sortable: true , resizable: true, rowDrag: true, checkboxSelection: true, editable: true, pinned: 'left' },
+      { field: 'assessmentType', headerName: 'Assessment Type',  cellEditor: 'agSelectCellEditor', cellEditorParams: {values: ['Quiz', 'Homework', 'Test', 'Project'], }, filter: 'agTextColumnFilter', cellStyle: { backgroundColor: '#71797E' }, lockPosition: false , sortable: true , resizable: true, rowDrag: true , editable: true, pinned: 'left' },
+      { headerName: 'Active', field: 'isActive', filter: 'selectFilter', cellRenderer: 'booleanCellRenderer' , lockPosition:false , sortable: true , resizable: true, rowDrag: true, editable: true, pinned: 'right' },
+      { 
+        headerName: 'Submission Date (Formatted)', 
+        field: 'submissionDate', 
+        filter: 'agDateColumnFilter', 
+        editable: true,
+        cellEditor: 'agDateCellEditor', 
+        valueFormatter: (params) => {
+          const date = new Date(params.value);
+          return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        },
+        pinned: 'left' 
+      },
     ],
     dataSource: [
-      { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true },
-      { assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false },
-      { assessmentName: 'History Exam', assessmentType: 'Test', isActive: true },
-      { assessmentName: 'Geography Assignment', assessmentType: 'Homework', isActive: true },
-      { assessmentName: 'English Essay', assessmentType: 'Assignment', isActive: false },
-      { assessmentName: 'Physics Lab', assessmentType: 'Experiment', isActive: true },
-      { assessmentName: 'Biology Quiz', assessmentType: 'Quiz', isActive: false },
-      { assessmentName: 'Chemistry Homework', assessmentType: 'Homework', isActive: true },
-      { assessmentName: 'Computer Science Project', assessmentType: 'Project', isActive: false },
-      { assessmentName: 'Art Assignment', assessmentType: 'Assignment', isActive: true },
-      { assessmentName: 'Music Test', assessmentType: 'Test', isActive: false },
-      { assessmentName: 'Drama Rehearsal', assessmentType: 'Performance', isActive: true },
-      { assessmentName: 'Economics Project', assessmentType: 'Project', isActive: false },
-      { assessmentName: 'Philosophy Essay', assessmentType: 'Essay', isActive: true },
-      { assessmentName: 'Sociology Quiz', assessmentType: 'Quiz', isActive: false },
-      { assessmentName: 'Geography Test', assessmentType: 'Test', isActive: true },
-      { assessmentName: 'Psychology Assignment', assessmentType: 'Assignment', isActive: false },
-      { assessmentName: 'Statistics Homework', assessmentType: 'Homework', isActive: true },
-      { assessmentName: 'Engineering Lab', assessmentType: 'Experiment', isActive: true },
-      { assessmentName: 'Astronomy Project', assessmentType: 'Project', isActive: false },
-      { assessmentName: 'Environmental Science Test', assessmentType: 'Test', isActive: true },
+      { assessmentName: 'Math Test', assessmentType: 'Quiz', isActive: true, submissionDate: '01/01/2022' },
+      { assessmentName: 'Science Project', assessmentType: 'Homework', isActive: false, submissionDate: '02/01/2022' },
+      { assessmentName: 'History Exam', assessmentType: 'Test', isActive: true, submissionDate: '03/01/2022' },
+      { assessmentName: 'Geography Assignment', assessmentType: 'Homework', isActive: true, submissionDate: '04/01/2022' },
+      { assessmentName: 'English Essay', assessmentType: 'Assignment', isActive: false, submissionDate: '05/01/2022' },
+      { assessmentName: 'Physics Lab', assessmentType: 'Experiment', isActive: true, submissionDate: '06/01/2022' },
+      { assessmentName: 'Biology Quiz', assessmentType: 'Quiz', isActive: false, submissionDate: '07/01/2022' },
+      { assessmentName: 'Chemistry Homework', assessmentType: 'Homework', isActive: true, submissionDate: '08/01/2022' },
+      { assessmentName: 'Computer Science Project', assessmentType: 'Project', isActive: false, submissionDate: '09/01/2022' },
+      { assessmentName: 'Art Assignment', assessmentType: 'Assignment', isActive: true, submissionDate: '10/01/2022' },
+      { assessmentName: 'Music Test', assessmentType: 'Test', isActive: false, submissionDate: '11/01/2022' },
+      { assessmentName: 'Drama Rehearsal', assessmentType: 'Performance', isActive: true, submissionDate: '12/01/2022' },
+      { assessmentName: 'Economics Project', assessmentType: 'Project', isActive: false, submissionDate: '01/15/2022' },
+      { assessmentName: 'Philosophy Essay', assessmentType: 'Essay', isActive: true, submissionDate: '02/15/2022' },
+      { assessmentName: 'Sociology Quiz', assessmentType: 'Quiz', isActive: false, submissionDate: '03/15/2022' },
+      { assessmentName: 'Geography Test', assessmentType: 'Test', isActive: true, submissionDate: '04/15/2022' },
+      { assessmentName: 'Psychology Assignment', assessmentType: 'Assignment', isActive: false, submissionDate: '05/15/2022' },
+      { assessmentName: 'Statistics Homework', assessmentType: 'Homework', isActive: true, submissionDate: '06/15/2022' },
+      { assessmentName: 'Engineering Lab', assessmentType: 'Experiment', isActive: true, submissionDate: '07/15/2022' },
+      { assessmentName: 'Astronomy Project', assessmentType: 'Project', isActive: false, submissionDate: '08/15/2022' },
+      { assessmentName: 'Environmental Science Test', assessmentType: 'Test', isActive: true, submissionDate: '09/15/2022' },
     ],
     options: {
       rowSelection: 'multiple',
@@ -66,7 +78,7 @@ export const Playground: Story = {
       animateRows: true,
       onRowDragEnd: (event) => {
         console.log('Row drag ended:', event.node.data);
-    },
+        },
     },
     pagination: true,
   },
@@ -89,7 +101,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'This story demonstrates the `Easygrid Component`.',
+        story: 'This story demonstrates the `Easygrid Component`. User cna change the controls to see different options',
       },
       source: {
         code: `
@@ -779,6 +791,7 @@ export const RowDragging: Story = {
         lockPosition: true, 
         sortable: false, 
         resizable: false,
+        rowDrag: true,
       },
       { 
         field: 'assessmentType', 
